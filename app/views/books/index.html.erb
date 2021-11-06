@@ -24,16 +24,21 @@
 </table>
 
 <h2>New book</h2>
-<% if flash.now[:error] %>
-<div id="error_explanation">
-      <h2>2 errors prohibited this book from being saved:</h2>
-      <ul>
-        <li>Title can't be blank</li>
-        <li>Body can't be blank</li>
-      </ul>
-  </div>
-</div>
+
+<% if @book.errors.any? %>
+ <div id="error_explanation">
+  <h2><%= @book.errors.count %>errors prohibited this book from being saved:</h2>
+  <ul>
+  <% @book.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %>
+    </li>
 <% end %>
+  </ul>
+<% end %>
+</div>
+</div>
+
 <%= form_for(@book) do |f| %>
 <% if flash.now[:error] %>
 <div class="field_with_errors">
